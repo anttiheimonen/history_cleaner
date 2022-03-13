@@ -6,7 +6,6 @@ use std::{
 };
 
 pub fn read_file(file_name: &String) -> Vec<Line> {
-    println!("{}", file_name);
     let mut text_lines = vec![];
 
     if let Ok(lines) = read_lines_from_file(file_name) {
