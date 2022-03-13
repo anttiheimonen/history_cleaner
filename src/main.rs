@@ -23,8 +23,13 @@ fn main() -> std::io::Result<()> {
     line_collection::remove_lines_starts_with(&mut text_lines, &remove_these);
 
     match save(&config.target_file, text_lines) {
-        Ok(_) => (),
-        Err(e) => eprintln!("{}", e),
+        Ok(_) => {
+            println!("Cleaned file saved at {}", config.target_file);
+        }
+        Err(e) => {
+            eprintln!("{}", e);
+            return Ok(());
+        }
     }
     Ok(())
 }
