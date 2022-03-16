@@ -27,7 +27,7 @@ pub fn remove_duplicate_lines(remove_from: &mut Vec<Line>) {
     }
 }
 
-pub fn remove_lines_starts_with(remove_from: &mut Vec<Line>, remove_these: &Vec<&str>) {
+pub fn remove_lines_starts_with(remove_from: &mut Vec<Line>, remove_these: &Vec<String>) {
     for line in remove_from {
         if !line.keep {
             continue;
