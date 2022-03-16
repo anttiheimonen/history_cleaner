@@ -14,10 +14,8 @@ fn main() -> std::io::Result<()> {
         None => (),
     }
 
-    let mut text_lines = read_file(&config.source_file);
-
-    line_collection::remove_duplicate_lines(&mut text_lines);
-    line_collection::remove_lines_starts_with(&mut text_lines, &config.remove_starts_with);
+    let text_lines = read_file(&config.source_file);
+    let text_lines = line_collection::line_operations(text_lines, &config);
 
     match save(&config.target_file, text_lines) {
         Ok(_) => {
