@@ -6,6 +6,13 @@ use history_cleaner::line_tools::line_collection;
 
 fn main() -> std::io::Result<()> {
     let config = config::create_from_default();
+    match config.config_file_error_msg {
+        Some(e) => {
+            eprintln!("{}", e);
+            return Ok(());
+        }
+        None => (),
+    }
 
     let mut text_lines = read_file(&config.source_file);
 
