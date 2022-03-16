@@ -21,12 +21,14 @@ pub struct Config {
     pub target_file: String,
     pub auto_replace_old: bool,
     pub config_file_error_msg: Option<String>,
+    pub remove_lines_shorter_than: usize,
     pub remove_starts_with: Vec<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct RunValues {
     auto_replace_old: bool,
+    remove_lines_shorter_than: usize,
     remove_starts_with: Vec<String>,
     source_file: String,
     target_file: String,
@@ -47,6 +49,7 @@ impl Config {
             target_file: run_values.target_file,
             auto_replace_old: run_values.auto_replace_old,
             config_file_error_msg: None,
+            remove_lines_shorter_than: run_values.remove_lines_shorter_than,
             remove_starts_with: run_values.remove_starts_with,
         }
     }
@@ -56,10 +59,11 @@ impl Default for Config {
     fn default() -> Self {
         Config {
             config_file: None,
-            source_file: String::from("testi.txt"),
-            target_file: String::from("testi.txt_cleaned"),
+            source_file: String::from(""),
+            target_file: String::from(""),
             auto_replace_old: false,
             config_file_error_msg: None,
+            remove_lines_shorter_than: 0,
             remove_starts_with: vec![],
         }
     }

@@ -14,7 +14,7 @@ fn main() -> std::io::Result<()> {
         None => (),
     }
 
-    let text_lines = read_file(&config.source_file);
+    let text_lines = read_file(&config);
     let text_lines = line_collection::line_operations(text_lines, &config);
 
     match save(&config.target_file, text_lines) {

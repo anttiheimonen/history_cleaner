@@ -1,18 +1,19 @@
-use crate::line_tools::line::*;
+use crate::{config::Config, line_tools::line::*};
 use std::{
     fs,
     io::{self, BufRead},
     path::Path,
 };
 
-pub fn read_file(file_name: &String) -> Vec<Line> {
+pub fn read_file(config: &Config) -> Vec<Line> {
+    let file_name = &config.source_file;
     let mut text_lines = vec![];
 
     if let Ok(lines) = read_lines_from_file(file_name) {
         let mut line_count: i32 = 0;
         for line in lines {
             if let Ok(text) = line {
-                if text.len() > 2 {
+                if text.len() >= config.remove_lines_shorter_than {
                     let l = build_line(text, line_count);
                     text_lines.push(l);
                     line_count += 1;
