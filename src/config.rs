@@ -9,8 +9,7 @@ pub fn user_home_path() -> Option<String> {
     let evars = env::vars();
     for var in evars {
         if var.0.eq("HOME") {
-            let fullpath = format!("{}", var.1);
-            return Some(fullpath);
+            return Some(var.1);
         }
     }
     None
@@ -67,8 +66,12 @@ impl Default for Config {
 }
 
 pub fn create_from_default() -> Config {
-    let home = user_home_path().unwrap();
-    let config_path = format!("{}{}", home, CONFIG_PATH);
+    let home_path: String;
+    match user_home_path() {
+        Some(value) => home_path = value,
+        None => return Config::new_with_error(String::from("User home path cannot be resolved")),
+    }
+    let config_path = format!("{}{}", home_path, CONFIG_PATH);
     create_from_file(&config_path)
 }
 
@@ -95,8 +98,6 @@ fn create_from_file(config_path: &str) -> Config {
 }
 
 fn read_file(mut file: File) -> std::io::Result<String> {
-    println!("read from file");
-
     let mut contents = String::new();
     let result = file.read_to_string(&mut contents);
     match result {
