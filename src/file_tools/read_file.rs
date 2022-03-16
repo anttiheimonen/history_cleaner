@@ -5,7 +5,7 @@ use std::{
     path::Path,
 };
 
-pub fn read_file(config: &Config) -> Vec<Line> {
+pub fn read_file(config: &Config) -> Option<Vec<Line>> {
     let file_name = &config.source_file;
     let mut text_lines = vec![];
 
@@ -18,13 +18,15 @@ pub fn read_file(config: &Config) -> Vec<Line> {
                     text_lines.push(l);
                     line_count += 1;
                 }
+            } else {
+                return None;
             }
         }
     } else {
-        println!("File is missing");
+        return None;
     }
 
-    text_lines
+    Some(text_lines)
 }
 
 fn read_lines_from_file<P>(filename: P) -> io::Result<io::Lines<io::BufReader<fs::File>>>

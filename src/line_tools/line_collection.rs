@@ -3,7 +3,9 @@ use crate::config::Config;
 
 pub fn line_operations(mut text_lines: Vec<Line>, config: &Config) -> Vec<Line> {
     remove_duplicate_lines(&mut text_lines);
-    remove_lines_starts_with(&mut text_lines, &config.remove_starts_with);
+    if config.remove_starts_with.len() > 0 {
+        remove_lines_starts_with(&mut text_lines, &config.remove_starts_with);
+    }
     text_lines
 }
 
