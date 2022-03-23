@@ -6,7 +6,7 @@ use history_cleaner::line_tools::line::Line;
 use history_cleaner::line_tools::line_collection;
 
 fn main() -> std::io::Result<()> {
-    let config = config::create_from_default();
+    let config = config::create_from_file();
     match config.config_file_error_msg {
         Some(e) => {
             eprintln!("{}", e);

@@ -69,17 +69,17 @@ impl Default for Config {
     }
 }
 
-pub fn create_from_default() -> Config {
+pub fn create_from_file() -> Config {
     let home_path: String;
     match user_home_path() {
         Some(value) => home_path = value,
         None => return Config::new_with_error(String::from("User home path cannot be resolved")),
     }
     let config_path = format!("{}{}", home_path, CONFIG_PATH);
-    create_from_file(&config_path)
+    process_file(&config_path)
 }
 
-fn create_from_file(config_path: &str) -> Config {
+fn process_file(config_path: &str) -> Config {
     let config_file: File;
     match File::open(config_path) {
         Ok(f) => config_file = f,
