@@ -27,10 +27,15 @@ pub struct Config {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct RunValues {
+    #[serde(rename(deserialize = "autoReplaceOld"))]
     auto_replace_old: bool,
+    #[serde(rename(deserialize = "removeLinesShorterThan"))]
     remove_lines_shorter_than: usize,
+    #[serde(rename(deserialize = "removeStartsWith"))]
     remove_starts_with: Vec<String>,
+    #[serde(rename(deserialize = "sourceFile"))]
     source_file: String,
+    #[serde(rename(deserialize = "targetFile"))]
     target_file: String,
 }
 
